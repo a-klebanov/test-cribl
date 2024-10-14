@@ -1,0 +1,23 @@
+connections:
+  procs: 1
+  memoryLimit: 2GB
+metrics:
+  procs: 1
+  memoryLimit: 2GB
+notifications:
+  procs: 1
+  memoryLimit: 2GB
+stream_connections:
+  procs: 0
+  autoScale: true
+  memoryLimit: 2GB
+edge_connections:
+  procs: 0
+  autoScale: true
+  memoryLimit: 2GB
+connection_proxy:
+  procs: 1
+  memoryLimit: 2GB
+jobs:
+  procs: 1
+  memoryLimit: 2GB

@@ -1,0 +1,65 @@
+search_user:
+  tags: [product, search]
+  policy:
+    - Product search GET
+    - SearchBase *
+  title: User
+  description: "User can receive access to resources within Search"
+search_editor:
+  tags: [product, search]
+  policy:
+    - LimitedProductUser search
+    - SearchMaintainer *
+  title: Editor
+  description: "Editor can create, read and modify all Search resources"
+search_admin:
+  tags: [product, search]
+  policy:
+    - ProductAdmin search
+    - SearchMaintainer *
+  title: Admin
+  description: "Admin can do anything within Search"
+lake_reader:
+  tags: [product, lake]
+  policy:
+    - LakeRead * * *
+  title: Read Only
+  description: "User can read the Lake"
+lake_editor:
+  tags: [product, lake]
+  policy:
+    - LakeEdit * *
+  title: Editor
+  description: "Editor can read the Lake and create datasets"
+lake_admin:
+  tags: [product, lake]
+  policy:
+    - LakeFull * * *
+  title: Admin
+  description: "Admin can do everything in Lake"
+org_owner:
+  policy:
+    - '* *'
+  title: Organization Owner
+  description: 'Organization Owner'
+org_admin:
+  policy:
+    - '* *'
+  title: Organization Admin
+  description: 'Organization Admin'
+ws_owner:
+  policy:
+    - '* *'
+  title: Workspace Owner
+  description: Workspace Owner
+ws_admin:
+  policy:
+    - '* *'
+  title: Workspace Admin
+  description: Workspace Admin
+cribl_operator:
+  policy:
+    - CRIBL|* /ops/*
+    - CRIBL|GET|PATCH /system/saas-limits
+    - GET /jobs/
+    - GET /jobs/*system.upgrade-group-*

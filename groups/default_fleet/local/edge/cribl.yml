@@ -1,0 +1,7 @@
+api:
+  host: 0.0.0.0
+  port: 9000
+  ssl:
+    disabled: false
+    certPath: $CRIBL_HOME/local/cribl/auth/certs/default.crt
+    privKeyPath: $CRIBL_HOME/local/cribl/auth/certs/default.key

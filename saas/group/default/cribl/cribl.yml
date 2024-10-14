@@ -1,0 +1,23 @@
+api:
+  disabled: false
+  host: 0.0.0.0
+  port: 9000
+  ssl:
+    disabled: false
+    privKeyPath: $CRIBL_CLOUD_KEY
+    certPath: $CRIBL_CLOUD_CRT
+crypto:
+  keyPath: $CRIBL_HOME/local/cribl/auth/keys.json
+kms.local:
+  type: local
+proxy:
+  useEnvVars: true
+system:
+  installType: standalone
+  intercom: true
+  restart: api
+  upgrade: api
+workers:
+  count: -1
+  memory: 2048
+  minimum: 2

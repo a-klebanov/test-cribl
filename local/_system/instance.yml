@@ -1,0 +1,10 @@
+distributed:
+  mode: master
+  master:
+    host: 0.0.0.0
+    port: 4200
+    tls:
+      privKeyPath: /Users/aklebanov/code/cribl/dist/ributed/master/local/cribl/auth/certs/default.key
+      certPath: /Users/aklebanov/code/cribl/dist/ributed/master/local/cribl/auth/certs/default.crt
+      disabled: false
+    resiliency: none

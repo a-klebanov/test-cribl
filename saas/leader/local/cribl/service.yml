@@ -1,0 +1,19 @@
+events:
+  memoryLimit: 2GB
+  procs: 1
+  output:
+    systemFields:
+      - cribl_pipe
+    streamtags: []
+    signatureVersion: v4
+    reuseConnections: true
+    rejectUnauthorized: true
+    onBackpressure: block
+    type: sns
+    topicArn: '`arn:aws:sns:${C.env.AWS_DEFAULT_REGION}:${C.env.ACCOUNTID}:${C.env.CRIBL_WORKSPACE_NAME}-${C.env.TENANT_ID}.fifo`'
+    messageGroupId: C.env.TENANT_ID
+search:
+  procs: 1
+  memoryLimit: 2GB
+connection_proxy:
+  procs: 0

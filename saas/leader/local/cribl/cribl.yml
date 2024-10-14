@@ -1,0 +1,19 @@
+api:
+  host: 0.0.0.0
+  port: 9000
+  protocol: http2
+  disabled: false
+  loginRateLimit: 2/second
+  ssoRateLimit: 2/second
+  ssl:
+    disabled: false
+    privKeyPath: $CRIBL_CLOUD_KEY
+    certPath: $CRIBL_CLOUD_CRT
+auth:
+  type: saas
+upgradeSettings:
+  disableAutomaticUpgrade: true
+git:
+  timeout: 300000
+  commitDeploySingleAction: true
+  defaultCommitMessage: default commit message

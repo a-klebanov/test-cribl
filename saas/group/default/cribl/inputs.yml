@@ -1,0 +1,169 @@
+inputs:
+  CriblMetrics:
+    disabled: true
+    pipeline: cribl_metrics_rollup
+    type: criblmetrics
+  http:
+    criblAPI: /cribl
+    elasticAPI: /elastic
+    host: 0.0.0.0
+    port: 10080
+    splunkHecAPI: /services/collector
+    tls:
+      certPath: $CRIBL_CLOUD_CRT
+      disabled: false
+      minVersion: TLSv1.2
+      privKeyPath: $CRIBL_CLOUD_KEY
+    type: http
+  in_appscope_tcp:
+    authToken: ''
+    disabled: false
+    enableProxyHeader: false
+    host: 0.0.0.0
+    ipWhitelistRegex: /.*/
+    maxActiveCxn: 1000
+    port: 10091
+    staleChannelFlushMs: 10000
+    tls:
+      disabled: true
+    type: appscope
+  in_appscope_tls:
+    authToken: ''
+    disabled: false
+    enableProxyHeader: false
+    host: 0.0.0.0
+    ipWhitelistRegex: /.*/
+    maxActiveCxn: 1000
+    port: 10090
+    staleChannelFlushMs: 10000
+    tls:
+      certPath: $CRIBL_CLOUD_CRT
+      disabled: false
+      minVersion: TLSv1.2
+      privKeyPath: $CRIBL_CLOUD_KEY
+    type: appscope
+  in_cribl_http:
+    activityLogSampleRate: 100
+    captureHeaders: false
+    disabled: false
+    enableProxyHeader: false
+    host: 0.0.0.0
+    maxActiveReq: 256
+    port: 10200
+    pqEnabled: false
+    requestTimeout: 0
+    sendToRoutes: true
+    streamtags: []
+    tls:
+      certPath: $CRIBL_CLOUD_CRT
+      disabled: false
+      minVersion: TLSv1.2
+      privKeyPath: $CRIBL_CLOUD_KEY
+    type: cribl_http
+  in_cribl_tcp:
+    disabled: false
+    enableProxyHeader: false
+    host: 0.0.0.0
+    maxActiveCxn: 1000
+    port: 10300
+    pqEnabled: false
+    sendToRoutes: true
+    streamtags: []
+    tls:
+      certPath: $CRIBL_CLOUD_CRT
+      disabled: false
+      minVersion: TLSv1.2
+      privKeyPath: $CRIBL_CLOUD_KEY
+    type: cribl_tcp
+  in_elastic:
+    elasticAPI: /
+    host: 0.0.0.0
+    port: 9200
+    tls:
+      certPath: $CRIBL_CLOUD_CRT
+      disabled: false
+      minVersion: TLSv1.2
+      privKeyPath: $CRIBL_CLOUD_KEY
+    type: elastic
+  in_syslog_default:
+    disabled: true
+    type: syslog
+    tcpPort: 10514
+    udpPort: 10514
+    host: 0.0.0.0
+  in_splunk_tcp:
+    host: 0.0.0.0
+    port: 9997
+    tls:
+      certPath: $CRIBL_CLOUD_CRT
+      disabled: false
+      minVersion: TLSv1.2
+      privKeyPath: $CRIBL_CLOUD_KEY
+    type: splunk
+    maxS2Sversion: v4
+  in_syslog:
+    host: 0.0.0.0
+    tcpPort: 9514
+    type: syslog
+    udpPort: 9514
+  in_syslog_tls:
+    host: 0.0.0.0
+    tcpPort: 6514
+    tls:
+      certPath: $CRIBL_CLOUD_CRT
+      disabled: false
+      minVersion: TLSv1.2
+      privKeyPath: $CRIBL_CLOUD_KEY
+    type: syslog
+  in_tcp:
+    host: 0.0.0.0
+    port: 10060
+    tls:
+      certPath: $CRIBL_CLOUD_CRT
+      disabled: false
+      minVersion: TLSv1.2
+      privKeyPath: $CRIBL_CLOUD_KEY
+    type: tcp
+  in_tcp_json:
+    host: 0.0.0.0
+    port: 10070
+    tls:
+      certPath: $CRIBL_CLOUD_CRT
+      disabled: false
+      minVersion: TLSv1.2
+      privKeyPath: $CRIBL_CLOUD_KEY
+    type: tcpjson
+  open_telemetry:
+    activityLogSampleRate: 100
+    authType: none
+    captureHeaders: false
+    disabled: false
+    enableProxyHeader: false
+    extractMetrics: false
+    extractSpans: false
+    host: 0.0.0.0
+    maxActiveCxn: 1000
+    maxActiveReq: 256
+    port: 4317
+    pqEnabled: false
+    requestTimeout: 0
+    sendToRoutes: true
+    streamtags: []
+    tls:
+      certPath: $CRIBL_CLOUD_CRT
+      disabled: false
+      minVersion: TLSv1.2
+      privKeyPath: $CRIBL_CLOUD_KEY
+    type: open_telemetry
+  in_splunk_hec:
+    type: splunk_hec
+    port: 8088
+    host: 0.0.0.0
+    splunkHecAPI: /services/collector
+    authTokens:
+      - token: C.env.UUID_AUTHTOKEN
+    tls:
+      disabled: false
+      privKeyPath: $CRIBL_CLOUD_KEY
+      certPath: $CRIBL_CLOUD_CRT
+      minVersion: 'TLSv1.2'
