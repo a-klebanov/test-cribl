@@ -10,7 +10,7 @@ auth:
   filter_type: email_whitelist
 git:
   gitOps: none
-  authType: ssh
+  authType: none
   autoAction: none
   timeout: 300000
   strictHostKeyChecking: false
