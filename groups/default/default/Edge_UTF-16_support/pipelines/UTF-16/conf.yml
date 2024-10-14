@@ -1,0 +1,132 @@
+output: default
+streamtags: []
+groups: {}
+asyncFuncTimeout: 1000
+functions:
+  - id: comment
+    filter: "true"
+    disabled: null
+    conf:
+      comment: >-
+        This pipeline may be tested using the MSSQL_Error.log sample provided
+        with the pack.
+
+
+        See "Pack Settings" for details on the operation, installation, and testing of this pack.
+  - id: comment
+    filter: "true"
+    disabled: null
+    conf:
+      comment: Microsoft SQL server logs the initial line of a file with two bytes
+        indicating the file encoding type of UTF16LE.  Subsequent lines lack
+        these bytes, and after using the event breaker these subsequent events
+        lack the encoding bytes.  The Code snippet below handles both scenarios.
+  - id: code
+    filter: "true"
+    disabled: false
+    conf:
+      maxNumOfIterations: 5000
+      activeLogSampleRate: 1
+      useUniqueLogChannel: true
+      code: >-
+        function decodeUTF16LE(binaryStr) {
+              const utf8 = [];
+              var i;
+              if (binaryStr.charCodeAt() > 0 ) { 
+                    // Line begins with two UTF-16 encoding bytes, skip them
+                    i = 2;
+              } else {
+                    // Line begins with \00000, skip it
+                    i = 1;
+              };
+              for (i; i < binaryStr.length; i += 2) {
+                let charcode = binaryStr.charCodeAt(i) | (binaryStr.charCodeAt(i + 1) << 8);
+                utf8.push(charcode);
+              }
+              return String.fromCharCode.apply(String, utf8);
+        };
+
+        __e['_raw1'] = decodeUTF16LE(__e['_raw']);
+    description: Re-encode the UTF-16LE stream to UTF-8
+  - id: comment
+    filter: "true"
+    disabled: null
+    conf:
+      comment: >-
+        Timestamps:
+
+        Timestamps in a UTF-16 source are not parsed properly on the way due to encoding.
+
+
+        Here, we will use autotimestamp function to correctly set the timestamp based on the event.
+
+
+        MS SQL server logs all start with a timestamp formatted as: 2024-09-23 19:25:49.05
+  - id: auto_timestamp
+    filter: _raw1.match(/^20\d{2}-/)
+    disabled: false
+    conf:
+      srcField: _raw1
+      dstField: _time2
+      defaultTimezone: local
+      timeExpression: time.getTime() / 1000
+      offset: 0
+      maxLen: 150
+      defaultTime: now
+      latestDateAllowed: +1week
+      earliestDateAllowed: -420weeks
+    description: Now that the line is in UTF-8, use the event timestamp to set _time
+  - id: mask
+    filter: _time2
+    disabled: null
+    conf:
+      rules:
+        - disabled: false
+          matchRegex: /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}.\d{2} /
+          replaceExpr: "''"
+      fields:
+        - _raw1
+      depth: 5
+    description: If timestamp was just parsed correctly, strip timestamp from event
+      (optional)
+  - id: mask
+    filter: _raw1
+    disabled: null
+    conf:
+      rules:
+        - disabled: false
+          matchRegex: /\r$/gm
+          replaceExpr: "''"
+      fields:
+        - _raw1
+      depth: 5
+    description: Strip trailing CR from each line (optional)
+  - id: mask
+    filter: _raw1
+    disabled: null
+    conf:
+      rules:
+        - disabled: false
+          matchRegex: /[ ]+/gm
+          replaceExpr: "' '"
+      fields:
+        - _raw1
+      depth: 5
+    description: Collapse multiple whitespace characters to a single space (optional)
+  - id: eval
+    filter: _raw1
+    disabled: false
+    conf:
+      add:
+        - disabled: false
+          name: _raw
+          value: _raw1
+        - disabled: false
+          name: _time
+          value: _time2
+      remove:
+        - _raw1
+        - _time2
+    description: For lines that were properly extracted (as detected by beginning
+      with <year>-), clean up and fix _raw
+description: Parse UTF-16LE files to UTF-8, specifically those created by MS SQL server

@@ -1,0 +1,1 @@
+{"version":"0.7.0","tags":{"streamtags":["UTF-16","encoding","MSSQL"],"dataType":["logs"]},"displayName":"Edge_UTF-16_support","minLogStreamVersion":"4.7.0","description":"Provides support for Edge when collecting files encoded in UTF-16.","author":"Michael Donnelly","name":"Edge_UTF-16_support"}

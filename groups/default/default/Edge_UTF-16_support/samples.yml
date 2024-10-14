@@ -1,0 +1,6 @@
+rqov35:
+  sampleName: MSSQL_Error.log
+  description: Microsoft SQL server error logs in UTF-16 format
+  created: 1728333289746
+  size: 323793
+  numEvents: 48
